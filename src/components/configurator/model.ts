@@ -86,3 +86,39 @@ export function findMatches(c: Config): Match[] {
     return { house: h, reasons: reasons.slice(0, 3) };
   });
 }
+
+/** Prefill a config from a free-text request (English or Finnish) by simple keyword matching. */
+export function parsePrompt(q: string): Config {
+  const s = q.toLowerCase().replace(/ /g, " ");
+  const c: Config = { ...initialConfig };
+  if (/sauna/.test(s)) c.extra = "sauna";
+  if (/office|study|työhuone|toimisto|etätyö/.test(s)) { c.extra = /sauna/.test(s) ? "sauna" : "study"; c.wfh = true; }
+  if (/two[- ]?(floor|stor)|2[- ]?(floor|stor)|kaksikerroksi|kaksi kerrosta|2 kerros/.test(s)) c.floors = 2;
+  else if (/one[- ]?(floor|stor)|single[- ]?(floor|stor)|yksikerroksi|yhdessä kerroksessa/.test(s)) c.floors = 1;
+  if (/plaster|render|rapat|kivitalo/.test(s)) c.facade = "plaster";
+  else if (/wood|timber|log|puu|hirsi/.test(s)) c.facade = "wood";
+  if (/open kitchen|avokeittiö/.test(s)) c.kitchen = "open";
+  else if (/separate kitchen|erillinen keittiö/.test(s)) c.kitchen = "closed";
+
+  const words: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, yhdelle: 1, kahdelle: 2, kolmelle: 3, neljälle: 4, viidelle: 5, kuudelle: 6, kaksihenkiselle: 2, kolmihenkiselle: 3, nelihenkiselle: 4, viisihenkiselle: 5, kuusihenkiselle: 6 };
+  const num = (w: string) => (/^\d$/.test(w) ? +w : words[w]);
+  const p =
+    s.match(/(?:for|family of|for a family of)\s+(\d|one|two|three|four|five|six)\b(?!\s*(?:m²|m2|floor|stor))/) ??
+    s.match(/(\d)\s*(?:people|persons|-?henkiselle|hengelle|hengen)/) ??
+    s.match(/\b(yhdelle|kahdelle|kolmelle|neljälle|viidelle|kuudelle|\w+henkiselle)\b/);
+  const pn = p ? num(p[1]) : undefined;
+  if (pn) c.people = Math.min(6, Math.max(1, pn));
+  else {
+    const m2 = s.match(/(\d{2,3})\s*(?:m²|m2|neliö|sqm)/);
+    if (m2) c.people = Math.min(6, Math.max(1, Math.round((+m2[1] - 60) / 24)));
+  }
+
+  const money = s.match(/(?:€\s*(\d[\d\s,.]*)\s*(k|000)?|(\d[\d\s,.]*)\s*(k|000)?\s*(?:€|eur))/);
+  if (money) {
+    const raw = (money[1] ?? money[3]).replace(/[\s,.]/g, "");
+    let v = +raw;
+    if (money[2] || money[4] || v < 1000) v = v < 1000 ? v * 1000 : v;
+    if (v >= 50000) c.budget = Math.min(450000, Math.max(150000, Math.round(v / 5000) * 5000));
+  }
+  return c;
+}

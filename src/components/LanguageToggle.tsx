@@ -25,7 +25,7 @@ function FiFlag() {
   );
 }
 
-export default function LanguageToggle() {
+export default function LanguageToggle({ dark = false }: { dark?: boolean }) {
   const { lang, setLang, t } = useLang();
   const options: { value: Lang; label: string; flag: React.ReactNode }[] = [
     { value: "en", label: "English", flag: <UkFlag /> },
@@ -41,7 +41,7 @@ export default function LanguageToggle() {
           aria-pressed={lang === o.value}
           aria-label={o.label}
           title={o.label}
-          className={`grid h-8 w-10 place-items-center rounded-sm transition-opacity ${lang === o.value ? "opacity-100 ring-1 ring-navy/30" : "opacity-40 hover:opacity-80"}`}
+          className={`grid h-8 w-10 place-items-center rounded-sm transition-opacity ${lang === o.value ? `opacity-100 ring-1 ${dark ? "ring-white/40" : "ring-navy/30"}` : "opacity-40 hover:opacity-80"}`}
         >
           {o.flag}
         </button>

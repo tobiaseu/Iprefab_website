@@ -12,6 +12,7 @@ export default function Header() {
   const pathname = usePathname();
   const { t } = useLang();
   const [open, setOpen] = useState(false);
+  const dark = pathname === "/";
   const [login, setLogin] = useState(false);
   const nav = [
     { href: "/configure", label: t.nav.configure },
@@ -23,10 +24,10 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-navy/10 bg-paper/95 backdrop-blur">
+    <header className={`sticky top-0 z-40 border-b backdrop-blur ${dark ? "border-white/10 bg-[#071438]/90 text-white" : "border-navy/10 bg-paper/95"}`}>
       <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-8 px-4 md:px-8">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className="grid size-8 place-items-center rounded-sm bg-navy">
+          <span className={`grid size-8 place-items-center rounded-sm ${dark ? "bg-white/10" : "bg-navy"}`}>
             <Logo className="h-4 w-auto" />
           </span>
           <span className="text-lg font-semibold tracking-tight">Iprefab</span>
@@ -40,7 +41,7 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-sm transition-colors ${active ? "text-navy underline decoration-periwinkle decoration-2 underline-offset-8" : "text-navy/70 hover:text-navy"}`}
+                className={`text-sm transition-colors ${active ? dark ? "text-white" : "text-navy underline decoration-periwinkle decoration-2 underline-offset-8" : dark ? "text-white/70 hover:text-white" : "text-navy/70 hover:text-navy"}`}
               >
                 {item.label}
               </Link>
@@ -49,8 +50,8 @@ export default function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
-          <LanguageToggle />
-          <button onClick={() => setLogin(true)} className="hidden text-sm text-navy/70 hover:text-navy sm:block">
+          <LanguageToggle dark={dark} />
+          <button onClick={() => setLogin(true)} className={`hidden text-sm sm:block ${dark ? "text-white/70 hover:text-white" : "text-navy/70 hover:text-navy"}`}>
             {t.nav.login}
           </button>
           <button className="lg:hidden" aria-label={t.nav.menu} aria-expanded={open} onClick={() => setOpen(!open)}>
@@ -62,7 +63,7 @@ export default function Header() {
       </div>
 
       {open && (
-        <nav className="flex flex-col border-t border-navy/10 px-4 pb-4 lg:hidden">
+        <nav className={`flex flex-col border-t px-4 ${dark ? "border-white/10" : "border-navy/10"} pb-4 lg:hidden`}>
           {nav.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="py-3">
               {item.label}

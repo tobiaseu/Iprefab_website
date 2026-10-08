@@ -8,7 +8,7 @@ import type { Dict } from "@/i18n/en";
 import HouseDrawing from "./HouseDrawing";
 import PairIcon from "./PairIcon";
 import ResultActions from "./ResultActions";
-import { estimatePrice, findMatches, initialConfig, targetArea, type Config, type Orientation, type ReasonKey } from "./model";
+import { estimatePrice, findMatches, initialConfig, parsePrompt, targetArea, type Config, type Orientation, type ReasonKey } from "./model";
 
 const STEPS = ["plot", "household", "lifestyle", "budget", "matches", "tweaks", "result"] as const;
 type Step = (typeof STEPS)[number];
@@ -62,9 +62,10 @@ function Segmented<T extends string | number>({ value, options, onChange, label 
   );
 }
 
-export default function Configurator() {
+export default function Configurator({ q = "" }: { q?: string }) {
   const { t } = useLang();
-  const [c, setC] = useState<Config>(initialConfig);
+  const start = useMemo(() => (q ? parsePrompt(q) : initialConfig), [q]);
+  const [c, setC] = useState<Config>(start);
   const [step, setStep] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -95,7 +96,7 @@ export default function Configurator() {
         <div className="flex items-baseline justify-between gap-4">
           <h1 className="text-2xl font-semibold tracking-tight">{t.cfg.title}</h1>
           {step > 0 && (
-            <button type="button" onClick={() => { setStep(0); setC(initialConfig); }} className="text-sm text-slate underline underline-offset-4 hover:text-navy">
+            <button type="button" onClick={() => { setStep(0); setC(start); }} className="text-sm text-slate underline underline-offset-4 hover:text-navy">
               {t.cfg.restart}
             </button>
           )}
@@ -103,6 +104,12 @@ export default function Configurator() {
 
         <div ref={listRef} className="no-scrollbar mt-8 min-h-0 flex-1 space-y-6 overflow-y-auto pr-1">
           <GuideLine name={t.cfg.guide}>{t.cfg.intro}</GuideLine>
+          {q && (
+            <div className="space-y-3">
+              <p className="ml-auto w-fit max-w-[85%] bg-stone px-4 py-2.5 text-sm">{q}</p>
+              <GuideLine name={t.cfg.guide}>{t.cfg.prefilled}</GuideLine>
+            </div>
+          )}
           {STEPS.slice(0, step).map((s) => (
             <div key={s} className="space-y-3">
               <GuideLine name={t.cfg.guide}>{question(t, s)}</GuideLine>
