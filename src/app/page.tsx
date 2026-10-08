@@ -1,82 +1,89 @@
 import Image from "next/image";
 import Link from "next/link";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import HouseCard from "@/components/HouseCard";
 import HouseTypePicker from "@/components/HouseTypePicker";
+import Marquee from "@/components/Marquee";
 import { articles, builders, houses } from "@/data/houses";
 
-const builderStyles: Record<string, string> = {
-  OKAL: "bg-white text-slate tracking-[0.2em]",
-  HONKA: "bg-[#ffd500] text-black font-black tracking-wider",
-  DESIGNTALO: "bg-white text-black font-extrabold tracking-wide",
-  SALVOS: "bg-black text-white font-black text-3xl lowercase",
-  IPREFAB: "bg-[#4d4b4c] text-white tracking-[0.3em]",
-  FINNLAMELLI: "bg-white text-black font-bold tracking-wider",
-};
+function SectionHeader({ eyebrow, title, href, cta }: { eyebrow: string; title: string; href?: string; cta?: string }) {
+  return (
+    <div className="flex items-end justify-between gap-6 px-4 md:px-16 xl:px-32">
+      <div>
+        <p className="text-xs font-semibold tracking-[0.2em] text-periwinkle uppercase">{eyebrow}</p>
+        <h2 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">{title}</h2>
+      </div>
+      {href && (
+        <Link href={href} className="group flex shrink-0 items-center gap-2 text-sm font-medium">
+          {cta}
+          <span className="grid size-8 place-items-center rounded-full bg-navy text-white transition group-hover:translate-x-1">→</span>
+        </Link>
+      )}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <Image src="/images/hero.png" alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-        <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-4 py-12 md:px-32 lg:flex-row lg:justify-between">
-          <div className="max-w-[560px] text-white">
-            <h1 className="text-[32px] font-semibold md:text-[40px]">Dream It, Build It, Live It.</h1>
-            <p className="mt-6 text-lg md:text-xl">
-              Find your dream house with HouseParky. Complete the form to log in and instantly access the best home
-              options tailored to you thanks to our AI-powered, personalized matchmaking.
+      <section className="relative min-h-[560px] overflow-hidden lg:min-h-[640px]">
+        <HeroSlideshow />
+        <div className="relative mx-auto flex max-w-[1440px] flex-col gap-10 px-4 py-20 md:px-16 lg:flex-row lg:items-center lg:justify-between lg:py-28 xl:px-32">
+          <div className="max-w-[520px] text-white">
+            <h1 className="text-4xl leading-tight font-semibold tracking-tight md:text-6xl">
+              Dream it. Build it. Live it.
+            </h1>
+            <p className="mt-6 max-w-[440px] text-lg text-white/85">
+              Find your Finnish prefab home in minutes, matched to you by AI.
             </p>
           </div>
           <HouseTypePicker />
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] py-10">
-        <div className="flex items-center justify-between px-4 md:px-32">
-          <h2 className="text-[32px] font-medium">Houses</h2>
-          <Link href="/houses" className="rounded-2xl border border-slate bg-white px-4 py-1 font-medium hover:bg-mist">
-            More Houses
-          </Link>
-        </div>
-        <div className="no-scrollbar mt-4 flex snap-x gap-4 overflow-x-auto px-4 py-4 md:px-32">
+      <section className="py-20 md:py-28">
+        <SectionHeader eyebrow="Featured" title="Houses you'll love" href="/houses" cta="All houses" />
+        <Marquee duration={70} className="mt-10">
           {houses.map((h) => (
-            <div key={h.slug} className="snap-start">
+            <div key={h.slug} className="pr-6">
               <HouseCard house={h} size="sm" />
             </div>
           ))}
-        </div>
+        </Marquee>
       </section>
 
-      <section className="mx-auto max-w-[1440px] pb-10">
-        <h2 className="px-4 text-[32px] font-medium md:px-32">Builders</h2>
-        <div className="no-scrollbar mt-6 flex gap-4 overflow-x-auto px-4 pb-4 md:px-32">
+      <section className="border-y border-navy/5 bg-white py-16 md:py-20">
+        <p className="text-center text-xs font-semibold tracking-[0.2em] text-slate uppercase">
+          Trusted Finnish builders
+        </p>
+        <Marquee duration={40} className="mt-10">
           {builders.map((b) => (
-            <div
+            <span
               key={b}
-              className={`flex h-20 w-60 shrink-0 items-center justify-center rounded-2xl text-2xl shadow-[0_2px_4px_rgba(0,0,0,0.25)] ${builderStyles[b]}`}
+              className="px-10 text-5xl font-extrabold tracking-tight whitespace-nowrap text-navy/25 transition-colors hover:text-navy md:px-16 md:text-7xl"
             >
-              {b === "SALVOS" ? "salvos" : b}
-            </div>
+              {b}
+            </span>
           ))}
-        </div>
+        </Marquee>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-4 pb-24 md:px-32">
-        <h2 className="text-[32px] font-medium">Magazine</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto max-w-[1440px] py-20 md:py-28">
+        <SectionHeader eyebrow="Magazine" title="Ideas & guides" href="/magazine" cta="Read more" />
+        <div className="mt-10 grid gap-6 px-4 sm:grid-cols-2 md:px-16 lg:grid-cols-3 xl:px-32">
           {articles.map((a) => (
             <Link
               key={a.slug}
               href="/magazine"
-              className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_4px_rgba(0,0,0,0.25)] transition-shadow hover:shadow-lg"
+              className="group overflow-hidden rounded-3xl bg-white ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(7,20,56,0.35)]"
             >
-              <div className="relative aspect-[2/1]">
-                <Image src={a.image} alt={a.title} fill sizes="(max-width: 768px) 100vw, 384px" className="object-cover" />
+              <div className="relative m-2 aspect-[2/1] overflow-hidden rounded-[18px]">
+                <Image src={a.image} alt={a.title} fill sizes="(max-width: 768px) 100vw, 400px" className="object-cover transition duration-700 group-hover:scale-105" />
               </div>
-              <div className="px-4 py-3">
-                <h3 className="text-xl font-medium">{a.title}</h3>
-                <p className="truncate text-[11px] text-slate">{a.excerpt}</p>
-                <p className="mt-4 text-[11px] text-slate">📅 {a.date}</p>
+              <div className="px-5 pt-3 pb-6">
+                <p className="text-xs text-slate">{a.date}</p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight">{a.title}</h3>
+                <p className="mt-1 line-clamp-2 text-sm text-slate">{a.excerpt}</p>
               </div>
             </Link>
           ))}

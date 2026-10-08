@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { LogoMark, SocialIcon } from "./Icons";
+import { SocialIcon } from "./Icons";
+import Logo from "./Logo";
 
 const columns = [
   { title: "Homepage", href: "/", links: ["Houses", "Builders", "Magazine"] },
@@ -13,10 +14,10 @@ const columns = [
 export default function Footer() {
   return (
     <footer className="bg-navy text-white">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-16 md:px-32 lg:grid-cols-[1fr_2fr]">
+      <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-20 md:px-16 xl:px-32 lg:grid-cols-[1fr_2fr]">
         <div>
           <div className="flex items-center gap-4">
-            <LogoMark className="h-14 w-20" />
+            <Logo className="h-14 w-auto" />
             <div>
               <p className="text-[32px] leading-none font-semibold">House Finland</p>
               <p className="mt-1 text-xl font-medium">Powered By Iprefab</p>

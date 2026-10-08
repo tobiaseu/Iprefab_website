@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { LogoMark, UserIcon } from "./Icons";
+import { UserIcon } from "./Icons";
+import Logo from "./Logo";
 import LoginModal from "./LoginModal";
 
 const nav = [
@@ -21,20 +22,20 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-navy text-white">
-      <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 md:px-8">
-        <Link href="/" className="flex items-center gap-3">
-          <LogoMark className="h-7 w-10" />
-          <span className="text-2xl font-bold">House Finland</span>
+      <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[1fr_auto] items-center px-4 md:px-8 lg:grid-cols-[1fr_auto_1fr]">
+        <Link href="/" className="flex items-center gap-3 justify-self-start">
+          <Logo className="h-8 w-auto" />
+          <span className="text-xl font-bold tracking-tight">House Finland</span>
         </Link>
 
-        <nav className="hidden items-center gap-12 lg:flex xl:gap-20">
+        <nav className="hidden items-center gap-10 lg:flex xl:gap-14">
           {nav.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-base uppercase transition-opacity hover:opacity-80 ${active ? "font-semibold" : ""}`}
+                className={`relative py-2 text-sm font-medium tracking-wide uppercase transition-opacity after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-periwinkle after:transition-transform ${active ? "after:scale-x-100" : "opacity-80 after:scale-x-0 hover:opacity-100 hover:after:scale-x-100"}`}
               >
                 {item.label}
               </Link>
@@ -42,8 +43,8 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-4">
-          <button onClick={() => setLogin(true)} className="flex items-center gap-2 hover:opacity-80">
+        <div className="flex items-center gap-4 justify-self-end">
+          <button onClick={() => setLogin(true)} className="flex items-center gap-2 rounded-full border border-white/20 py-1.5 pr-4 pl-1.5 text-sm font-medium transition hover:bg-white/10">
             <UserIcon className="size-6" />
             <span className="hidden sm:inline">Log In</span>
           </button>

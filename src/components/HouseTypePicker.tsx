@@ -12,8 +12,8 @@ export default function HouseTypePicker() {
   const [selected, setSelected] = useState<HouseType | null>(null);
 
   return (
-    <div className="w-full max-w-[544px] rounded-[32px] bg-mist p-4 shadow-lg">
-      <h2 className="py-2 text-center text-2xl font-medium">Choose Your House Type</h2>
+    <div className="w-full max-w-[520px] rounded-[28px] bg-white/90 p-5 shadow-2xl ring-1 ring-white/40 backdrop-blur-xl md:p-6">
+      <h2 className="text-lg font-semibold tracking-tight">What are you looking for?</h2>
       <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-4">
         {houseTypes.map(({ value, label }) => {
           const Icon = icons[value];
@@ -23,19 +23,19 @@ export default function HouseTypePicker() {
               key={value}
               onClick={() => setSelected(value)}
               aria-pressed={active}
-              className={`flex h-32 flex-col items-center justify-center gap-3 rounded-2xl bg-white shadow-[0_2px_4px_rgba(0,0,0,0.25)] transition ${active ? "ring-2 ring-periwinkle" : "hover:-translate-y-0.5"}`}
+              className={`flex h-32 flex-col items-center justify-center gap-3 rounded-2xl border bg-white transition ${active ? "border-periwinkle bg-periwinkle/5 ring-2 ring-periwinkle/30" : "border-navy/10 hover:-translate-y-0.5 hover:border-navy/30"}`}
             >
               <Icon className="h-12 w-16" />
-              <span className="text-sm sm:text-base">{label}</span>
+              <span className="text-xs font-medium sm:text-sm">{label}</span>
             </button>
           );
         })}
       </div>
       <button
         onClick={() => router.push(selected ? `/houses?type=${selected}` : "/houses")}
-        className="mt-4 h-12 w-full rounded-[20px] bg-periwinkle text-xl font-medium text-white hover:brightness-95"
+        className="mt-4 h-12 w-full rounded-full bg-navy text-base font-medium text-white transition hover:bg-periwinkle"
       >
-        Continue
+        Find my house →
       </button>
     </div>
   );

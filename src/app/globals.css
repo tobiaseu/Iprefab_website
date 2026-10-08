@@ -19,3 +19,35 @@ body {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+.kenburns {
+  animation: kenburns 14s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .kenburns {
+    animation: none;
+  }
+}

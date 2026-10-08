@@ -11,31 +11,43 @@ export default function HouseCard({ house, size = "md" }: { house: House; size?:
   const sm = size === "sm";
 
   return (
-    <article className={`group relative overflow-hidden rounded-2xl bg-white shadow-[0_2px_4px_rgba(0,0,0,0.25)] transition-shadow hover:shadow-lg ${sm ? "w-64 shrink-0" : ""}`}>
-      <div className={`relative ${sm ? "h-40" : "aspect-[2/1]"}`}>
-        <Image src={house.image} alt={house.name} fill sizes="(max-width: 768px) 100vw, 384px" className="object-cover" />
+    <article
+      className={`group relative flex flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(7,20,56,0.35)] ${sm ? "w-72 shrink-0" : ""}`}
+    >
+      <div className="relative m-2 aspect-[4/3] overflow-hidden rounded-[18px]">
+        <Image
+          src={house.image}
+          alt={house.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 400px"
+          className="object-cover transition duration-700 group-hover:scale-105"
+        />
+        <span className="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium backdrop-blur">
+          {house.builder}
+        </span>
         <button
           onClick={() => setLiked(!liked)}
           aria-label={liked ? "Remove from favourites" : "Add to favourites"}
           aria-pressed={liked}
-          className="absolute top-3 right-3 z-10 rounded-full bg-black/10 p-1 backdrop-blur-[2px] transition-transform hover:scale-110"
+          className="absolute top-3 right-3 z-10 grid size-9 place-items-center rounded-full bg-navy/25 backdrop-blur transition hover:scale-110 hover:bg-navy/40"
         >
-          <HeartIcon filled={liked} className="size-6" />
+          <HeartIcon filled={liked} className="size-5" />
         </button>
       </div>
-      <div className="px-4 pt-3 pb-4">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className={`${sm ? "text-xl" : "text-2xl"} font-medium`}>
-            <Link href={`/houses/${house.slug}`} className="after:absolute after:inset-0">{house.name}</Link>
+      <div className="flex flex-1 flex-col px-5 pt-3 pb-5">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="text-lg font-semibold tracking-tight">
+            <Link href={`/houses/${house.slug}`} className="after:absolute after:inset-0">
+              {house.name}
+            </Link>
           </h3>
-          <p className={sm ? "text-base" : "text-xl"}>{formatPrice(house.price)}</p>
+          <p className="text-lg font-medium text-periwinkle">{formatPrice(house.price)}</p>
         </div>
-        <p className="text-[11px] text-slate">{house.builder}</p>
-        <div className="mt-4 flex gap-6 text-xs text-slate">
-          <span>{house.size} m²</span>
-          <span>{house.bedrooms} Bedrooms</span>
-          <span>{house.floors} {house.floors === 1 ? "Floor" : "Floors"}</span>
-        </div>
+        <ul className="mt-4 flex flex-wrap gap-2 text-xs text-slate">
+          <li className="rounded-full bg-mist px-3 py-1">{house.size} m²</li>
+          <li className="rounded-full bg-mist px-3 py-1">{house.bedrooms} bedrooms</li>
+          <li className="rounded-full bg-mist px-3 py-1">{house.floors} {house.floors === 1 ? "floor" : "floors"}</li>
+        </ul>
       </div>
     </article>
   );
