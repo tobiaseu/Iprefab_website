@@ -122,3 +122,57 @@ export function parsePrompt(q: string): Config {
   }
   return c;
 }
+
+/* ---------- Studio (3D configurator, phase 1) ---------- */
+
+export const EXTRAS = ["sauna", "terrace", "carport", "fireplace", "solar"] as const;
+export type Extra = (typeof EXTRAS)[number];
+export const COLORS = { white: "#f4f1ea", pine: "#d9b47a", graphite: "#7d8796", ochre: "#c4553f" } as const;
+export type ColorKey = keyof typeof COLORS;
+export const AREAS = [80, 100, 120, 150, 180] as const;
+
+export type Studio = { area: number; floors: 1 | 2; roof: Roof; color: ColorKey; extras: Extra[] };
+
+export const initialStudio: Studio = { area: 120, floors: 1, roof: "gable", color: "white", extras: ["terrace"] };
+
+const EXTRA_COST: Record<Extra, number> = { sauna: 16000, terrace: 9000, carport: 12000, fireplace: 7000, solar: 11000 };
+
+export function studioPrice(s: Studio) {
+  let p = s.area * 1850;
+  if (s.floors === 2) p -= s.area * 90;
+  if (s.roof === "flat") p += 7000;
+  if (s.roof === "shed") p += 3000;
+  if (s.color === "ochre" || s.color === "pine") p += 4000;
+  for (const e of s.extras) p += EXTRA_COST[e];
+  return Math.round(p / 1000) * 1000;
+}
+
+const has = (s: string, re: RegExp) => re.test(s);
+
+/** Update only what the text actually mentions, keeping every other choice. */
+export function parseStudio(q: string, prev: Studio): Studio {
+  const s = q.toLowerCase();
+  const next: Studio = { ...prev, extras: [...prev.extras] };
+  if (has(s, /two[- ]?(floor|stor)|2[- ]?(floor|stor)|kaksikerroksi|kaksi kerrosta|2 kerros/)) next.floors = 2;
+  else if (has(s, /one[- ]?(floor|stor)|single[- ]?(floor|stor)|yksikerroksi|yhdessä kerroksessa/)) next.floors = 1;
+  if (has(s, /flat roof|tasakat/)) next.roof = "flat";
+  else if (has(s, /single[- ]slope|shed roof|mono[- ]?pitch|pulpetti/)) next.roof = "shed";
+  else if (has(s, /gable|harjakat/)) next.roof = "gable";
+  const m2 = s.match(/(\d{2,3})\s*(?:m²|m2|neliö|sqm)/);
+  if (m2) next.area = Math.min(220, Math.max(50, +m2[1]));
+  else if (/people|persons|family|henki|hengelle|perhe/.test(s)) {
+    const area = targetArea({ ...parsePrompt(q), extra: "study" });
+    next.area = AREAS.reduce((a, b) => (Math.abs(b - area) < Math.abs(a - area) ? b : a));
+  }
+  const add = (e: Extra, re: RegExp) => { if (re.test(s) && !next.extras.includes(e)) next.extras.push(e); };
+  add("sauna", /sauna/);
+  add("terrace", /terrace|deck|terassi/);
+  add("carport", /carport|autokatos/);
+  add("fireplace", /fireplace|takka/);
+  add("solar", /solar|aurinko/);
+  if (/plaster|rapat|white|valkoi/.test(s)) next.color = "white";
+  else if (/graphite|grey|gray|harmaa/.test(s)) next.color = "graphite";
+  else if (/ochre|red|punamult|puna/.test(s)) next.color = "ochre";
+  else if (/wood|timber|log|pine|puu|hirsi|mänty/.test(s)) next.color = "pine";
+  return next;
+}

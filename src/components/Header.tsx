@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLang } from "@/i18n/LanguageProvider";
 import LanguageToggle from "./LanguageToggle";
 import LoginModal from "./LoginModal";
@@ -14,6 +14,13 @@ export default function Header() {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 8);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
   const nav = [
     { href: "/configure", label: t.nav.configure },
     { href: "/houses", label: t.nav.houses },
@@ -24,7 +31,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#071438]/80 text-white backdrop-blur-xl">
+    <header className={`sticky top-0 z-40 text-white transition-[background-color,backdrop-filter] duration-300 ${scrolled || open ? "bg-[#060b1a]/55 backdrop-blur-md" : "bg-transparent"}`}>
       <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-4 px-4 md:h-20 md:px-8">
         <Link href="/" className="flex items-center gap-2.5">
           <Logo tone="white" className="h-6 w-auto" />
@@ -64,7 +71,7 @@ export default function Header() {
       </div>
 
       {open && (
-        <nav className="flex flex-col border-t border-white/10 px-4 pb-4 xl:hidden">
+        <nav className="flex flex-col border-t border-white/10 bg-[#060b1a]/90 px-4 pb-4 xl:hidden">
           {nav.map((item) => (
             <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="py-3">
               {item.label}

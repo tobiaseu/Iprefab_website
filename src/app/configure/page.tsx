@@ -1,16 +1,16 @@
 import { Suspense } from "react";
-import ConfigureFromQuery from "@/components/configurator/ConfigureFromQuery";
-import Configurator from "@/components/configurator/Configurator";
+import StudioFromQuery from "@/components/configurator/StudioFromQuery";
+import Studio from "@/components/configurator/Studio";
 
 export const metadata = {
   title: "Configure your home — Iprefab",
-  description: "Answer a few questions and watch your prefab house take shape, then compare matching models from Finnish builders.",
+  description: "Shape your prefab house as a live 3D frame: size, floors, roof, colours and extras, with an instant price estimate.",
 };
 
 export default function ConfigurePage() {
   return (
-    <Suspense fallback={<Configurator />}>
-      <ConfigureFromQuery />
+    <Suspense fallback={<Studio />}>
+      <StudioFromQuery />
     </Suspense>
   );
 }
