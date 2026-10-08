@@ -113,7 +113,7 @@ export default function Studio({ q = "" }: { q?: string }) {
 
       {/* Dock */}
       <section aria-label={st.dockLabel} className="relative z-10 px-4 pb-10 lg:absolute lg:inset-x-0 lg:bottom-6 lg:pb-0">
-        <div className="glass mx-auto w-full max-w-[880px] rounded-[28px] !bg-[#0a1640]/70 p-3 md:p-4">
+        <div className="glass mx-auto w-full max-w-[880px] rounded-[28px] p-3 md:p-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();

@@ -20,7 +20,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="login-title"
-        className="relative m-auto w-full max-w-[544px] glass rounded-3xl !bg-[#0b1846]/95 p-8 shadow-xl md:p-12"
+        className="relative m-auto w-full max-w-[544px] glass rounded-3xl !bg-[#1f2c66]/90 p-8 shadow-xl md:p-12"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} aria-label="Close" className="absolute top-5 right-5 text-slate hover:text-navy">

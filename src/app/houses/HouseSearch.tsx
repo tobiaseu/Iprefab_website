@@ -62,7 +62,7 @@ export default function HouseSearch() {
         <div className="relative mx-auto flex max-w-[1440px] justify-center px-4 py-8">
           <form
             onSubmit={(e) => { e.preventDefault(); setFilters(draft); }}
-            className="w-full max-w-[768px] glass rounded-[32px] !bg-[#0b1846]/80 p-6"
+            className="w-full max-w-[768px] glass rounded-[32px] p-6"
           >
             <h1 className="text-center text-2xl font-medium">Your Project Starts Here</h1>
             <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
@@ -86,7 +86,7 @@ export default function HouseSearch() {
             <SortIcon className="size-6" />
           </button>
           {sortOpen && (
-            <div className="absolute top-14 right-4 z-10 w-56 overflow-hidden rounded-2xl border border-white/10 bg-[#0b1846] shadow-xl md:right-32">
+            <div className="absolute top-14 right-4 z-10 w-56 overflow-hidden rounded-2xl border border-white/10 bg-[#1f2c66] shadow-xl md:right-32">
               {(Object.keys(sorts) as (keyof typeof sorts)[]).map((k) => (
                 <button
                   key={k}

@@ -23,7 +23,7 @@ export default function ServicesPage() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 {s.plans.map((p) => (
-                  <div key={p.name} className="flex flex-col rounded-2xl border-2 p-4" style={{ borderColor: s.color }}>
+                  <div key={p.name} className="flex flex-col rounded-2xl border-2 bg-[rgb(42_58_122/0.5)] p-4 backdrop-blur-lg" style={{ borderColor: s.color }}>
                     <p className="text-xl">{p.name}</p>
                     <p className="mt-6 flex-1 text-2xl font-medium">{p.price}</p>
                     <a href="#" className="mt-6 rounded-2xl border border-slate py-2 text-center font-medium hover:bg-mist">{p.cta}</a>

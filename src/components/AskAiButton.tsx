@@ -38,7 +38,7 @@ export default function AskAiButton() {
   return (
     <>
       {open && (
-        <div className="fixed right-4 bottom-24 z-40 flex h-[480px] w-[min(360px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b1846]/95 shadow-2xl backdrop-blur-xl">
+        <div className="fixed right-4 bottom-24 z-40 flex h-[480px] w-[min(360px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl glass shadow-2xl">
           <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3 text-white">
             <p className="font-medium">AI Consultant</p>
             <button onClick={() => setOpen(false)} aria-label="Close chat">✕</button>

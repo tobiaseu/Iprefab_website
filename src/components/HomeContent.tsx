@@ -25,8 +25,8 @@ function FeatureCard({ house }: { house: House }) {
   return (
     <article className="group relative aspect-[4/5] w-[78vw] max-w-[380px] shrink-0 snap-start overflow-hidden rounded-[28px] border border-white/10 sm:aspect-[4/5]">
       <Image src={house.cover ?? house.image} alt="" fill sizes="(max-width: 640px) 78vw, 380px" className="object-cover transition duration-700 group-hover:scale-105" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#05070d]/80 via-transparent to-transparent" />
-      <div className="glass absolute inset-x-3 bottom-3 rounded-[20px] !bg-[#0a0f1f]/45 p-4">
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#071438]/80 via-transparent to-transparent" />
+      <div className="glass absolute inset-x-3 bottom-3 rounded-[20px] p-4">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="text-lg font-semibold tracking-tight">
             <Link href={`/houses/${house.slug}`} className="after:absolute after:inset-0">{house.name}</Link>
@@ -106,7 +106,7 @@ export default function HomeContent() {
 
       {/* Newsletter */}
       <section className="mx-auto max-w-6xl px-4 pt-20 pb-24">
-        <div className="glass grid gap-6 rounded-3xl !bg-white/[0.03] p-6 md:grid-cols-2 md:items-end md:p-10">
+        <div className="glass grid gap-6 rounded-3xl p-6 md:grid-cols-2 md:items-end md:p-10">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">{h.newsTitle}</h2>
             <p className="mt-2 max-w-sm text-white/65">{h.newsLead}</p>

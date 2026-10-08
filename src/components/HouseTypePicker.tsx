@@ -12,7 +12,7 @@ export default function HouseTypePicker() {
   const [selected, setSelected] = useState<HouseType | null>(null);
 
   return (
-    <div className="w-full max-w-[520px] glass rounded-[28px] !bg-[#0b1846]/80 p-5 shadow-2xl md:p-6">
+    <div className="w-full max-w-[520px] glass rounded-[28px] p-5 shadow-2xl md:p-6">
       <h2 className="text-lg font-semibold tracking-tight">What are you looking for?</h2>
       <div className="mt-3 grid grid-cols-3 gap-2 sm:gap-4">
         {houseTypes.map(({ value, label }) => {

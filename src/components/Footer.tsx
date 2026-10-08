@@ -16,7 +16,7 @@ export default function Footer() {
     { href: "/about", label: t.nav.about },
   ];
   return (
-    <footer className="border-t border-white/10 bg-[#050d28]/70 text-white backdrop-blur">
+    <footer className="border-t border-white/10 bg-[#071438]/60 text-white backdrop-blur">
       <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-6 gap-y-10 px-4 py-16 md:px-8">
         <div className="col-span-12 md:col-span-5">
           <div className="flex items-center gap-3">
