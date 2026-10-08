@@ -10,6 +10,7 @@ export type House = {
   floors: number;
   price: number;
   image: string;
+  cover?: string;
 };
 
 export const houses: House[] = [
@@ -23,7 +24,7 @@ export const houses: House[] = [
   { slug: "shine-133", name: "Shine 133", builder: "Finnlamelli", type: "holiday", size: 132, bedrooms: 4, floors: 1, price: 369000, image: "/images/shine-133.jpg" },
   { slug: "rehti-89", name: "Rehti 89", builder: "Finnlamelli", type: "cabin", size: 89, bedrooms: 4, floors: 1, price: 205000, image: "/images/rehti-89.jpg" },
   { slug: "ideal-90", name: "Ideal 90", builder: "Designtalo", type: "detached", size: 90, bedrooms: 3, floors: 1, price: 163000, image: "/images/ideal-90.jpg" },
-  { slug: "aava-134", name: "Aava 134", builder: "Finnlamelli", type: "holiday", size: 134, bedrooms: 4, floors: 1, price: 306000, image: "/images/aava-140-lake.jpg" },
+  { slug: "aava-134", name: "Aava 134", builder: "Finnlamelli", type: "holiday", size: 134, bedrooms: 4, floors: 1, price: 306000, image: "/images/aava-140-lake.jpg", cover: "/images/house-cover.jpg" },
 ];
 
 export const houseTypes: { value: HouseType; label: string }[] = [
