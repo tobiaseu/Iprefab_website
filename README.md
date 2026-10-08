@@ -14,3 +14,7 @@ Marketplace website for Finnish prefab houses with AI-powered matchmaking, built
 npm install
 npm run dev
 ```
+
+## Deploy (GitHub Pages)
+The site is exported as static HTML (`output: "export"`). Every push to `main` runs `.github/workflows/pages.yml`, which builds and publishes it.
+One-time setup: **Settings → Pages → Source: GitHub Actions**.

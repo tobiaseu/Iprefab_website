@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import HouseCard from "@/components/HouseCard";
@@ -56,8 +57,9 @@ export default function HouseSearch() {
 
   return (
     <>
-      <section className="relative bg-[url(/images/hero.png)] bg-cover bg-center">
-        <div className="mx-auto flex max-w-[1440px] justify-center px-4 py-8">
+      <section className="relative">
+        <Image src="/images/hero.png" alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="relative mx-auto flex max-w-[1440px] justify-center px-4 py-8">
           <form
             onSubmit={(e) => { e.preventDefault(); setFilters(draft); }}
             className="w-full max-w-[768px] rounded-[32px] bg-white p-6 shadow-lg"
