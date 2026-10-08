@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/houses/[slug]">) {
   const { slug } = await params;
   const house = houses.find((h) => h.slug === slug);
-  return { title: house ? `${house.name} — House Finland` : "House — House Finland" };
+  return { title: house ? `${house.name} — Iprefab` : "House — Iprefab" };
 }
 
 export default async function HousePage({ params }: PageProps<"/houses/[slug]">) {

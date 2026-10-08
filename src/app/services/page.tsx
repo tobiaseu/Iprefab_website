@@ -2,7 +2,7 @@ import Accordion from "@/components/Accordion";
 import PageHero from "@/components/PageHero";
 import { services } from "@/data/services";
 
-export const metadata = { title: "Services — House Finland" };
+export const metadata = { title: "Services — Iprefab" };
 
 export default function ServicesPage() {
   return (

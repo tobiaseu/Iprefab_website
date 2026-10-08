@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ChatIcon } from "./Icons";
 
@@ -17,10 +18,11 @@ const reply = (q: string) => {
 };
 
 export default function AskAiButton() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([
-    { from: "ai", text: "Hi! I'm the House Finland AI consultant. How can I help you find your dream house?" },
+    { from: "ai", text: "Hi! I'm the Iprefab AI consultant. How can I help you find your dream house?" },
   ]);
 
   const send = (e: React.FormEvent) => {
@@ -31,6 +33,8 @@ export default function AskAiButton() {
     setInput("");
   };
 
+  // The home page and the configurator have their own guide, so keep them quiet.
+  if (pathname === "/" || pathname.startsWith("/configure")) return null;
   return (
     <>
       {open && (

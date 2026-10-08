@@ -1,7 +1,7 @@
 import Image from "next/image";
 import PageHero from "@/components/PageHero";
 
-export const metadata = { title: "About Us — House Finland" };
+export const metadata = { title: "About Us — Iprefab" };
 
 const team = [
   { name: "Sina Rahimi", role: "CEO", image: "/images/team-sina.png" },

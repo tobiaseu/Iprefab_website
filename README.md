@@ -1,4 +1,4 @@
-# House Finland — Powered by Iprefab
+# Iprefab
 
 Marketplace website for Finnish prefab houses with AI-powered matchmaking, built from the Iprefab Figma prototype.
 

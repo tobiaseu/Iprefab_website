@@ -1,15 +1,15 @@
 import Accordion from "@/components/Accordion";
 import PageHero from "@/components/PageHero";
 
-export const metadata = { title: "FAQ — House Finland" };
+export const metadata = { title: "FAQ — Iprefab" };
 
 const faq = [
   { group: "General", items: [
-    ["What is House Finland?", "House Finland is a marketplace powered by Iprefab that connects you with the best Finnish prefab house builders and matches you with homes that fit your needs."],
+    ["What is Iprefab?", "Iprefab is an aggregator that connects you with the best Finnish prefab house builders and matches you with homes that fit your needs."],
     ["Do I need an account?", "You can browse houses freely. Creating an account unlocks AI matchmaking, favourites, comparisons and free consultations."],
   ]},
   { group: "Cost & Financing", items: [
-    ["How much does a prefab house cost?", "Prices on House Finland start from around €160.000 for a 90 m² model. The final cost depends on size, customisation, plot and foundations."],
+    ["How much does a prefab house cost?", "Prices on Iprefab start from around €160.000 for a 90 m² model. The final cost depends on size, customisation, plot and foundations."],
     ["Can you help with financing?", "Yes. Our Financial & Project Planning Consultancy helps you compare mortgage options and build a realistic budget."],
   ]},
   { group: "Design & Customization", items: [

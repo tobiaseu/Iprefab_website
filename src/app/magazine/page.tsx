@@ -2,7 +2,7 @@ import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import { articles } from "@/data/houses";
 
-export const metadata = { title: "Magazine — House Finland" };
+export const metadata = { title: "Magazine — Iprefab" };
 
 export default function MagazinePage() {
   return (

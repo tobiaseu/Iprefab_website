@@ -3,39 +3,44 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { UserIcon } from "./Icons";
-import Logo from "./Logo";
+import { useLang } from "@/i18n/LanguageProvider";
+import LanguageToggle from "./LanguageToggle";
 import LoginModal from "./LoginModal";
-
-const nav = [
-  { href: "/houses", label: "Houses" },
-  { href: "/magazine", label: "Magazine" },
-  { href: "/services", label: "Services" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/about", label: "About Us" },
-];
+import Logo from "./Logo";
 
 export default function Header() {
   const pathname = usePathname();
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [login, setLogin] = useState(false);
+  const nav = [
+    { href: "/configure", label: t.nav.configure },
+    { href: "/houses", label: t.nav.houses },
+    { href: "/magazine", label: t.nav.magazine },
+    { href: "/services", label: t.nav.services },
+    { href: "/faq", label: t.nav.faq },
+    { href: "/about", label: t.nav.about },
+  ];
 
   return (
-    <header className="sticky top-0 z-40 bg-navy text-white">
-      <div className="mx-auto grid h-20 max-w-[1440px] grid-cols-[1fr_auto] items-center px-4 md:px-8 lg:grid-cols-[1fr_auto_1fr]">
-        <Link href="/" className="flex items-center gap-3 justify-self-start">
-          <Logo className="h-8 w-auto" />
-          <span className="text-xl font-bold tracking-tight">House Finland</span>
+    <header className="sticky top-0 z-40 border-b border-navy/10 bg-paper/95 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-8 px-4 md:px-8">
+        <Link href="/" className="flex items-center gap-2.5">
+          <span className="grid size-8 place-items-center rounded-sm bg-navy">
+            <Logo className="h-4 w-auto" />
+          </span>
+          <span className="text-lg font-semibold tracking-tight">Iprefab</span>
         </Link>
 
-        <nav className="hidden items-center gap-10 lg:flex xl:gap-14">
+        <nav className="hidden items-center gap-7 lg:flex">
           {nav.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative py-2 text-sm font-medium tracking-wide uppercase transition-opacity after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-periwinkle after:transition-transform ${active ? "after:scale-x-100" : "opacity-80 after:scale-x-0 hover:opacity-100 hover:after:scale-x-100"}`}
+                aria-current={active ? "page" : undefined}
+                className={`text-sm transition-colors ${active ? "text-navy underline decoration-periwinkle decoration-2 underline-offset-8" : "text-navy/70 hover:text-navy"}`}
               >
                 {item.label}
               </Link>
@@ -43,36 +48,29 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-4 justify-self-end">
-          <button onClick={() => setLogin(true)} className="flex items-center gap-2 rounded-full border border-white/20 py-1.5 pr-4 pl-1.5 text-sm font-medium transition hover:bg-white/10">
-            <UserIcon className="size-6" />
-            <span className="hidden sm:inline">Log In</span>
+        <div className="ml-auto flex items-center gap-3">
+          <LanguageToggle />
+          <button onClick={() => setLogin(true)} className="hidden text-sm text-navy/70 hover:text-navy sm:block">
+            {t.nav.login}
           </button>
-          <button
-            className="lg:hidden"
-            aria-label="Menu"
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-          >
-            <svg viewBox="0 0 24 24" className="size-7" stroke="white" strokeWidth="2">
-              {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          <button className="lg:hidden" aria-label={t.nav.menu} aria-expanded={open} onClick={() => setOpen(!open)}>
+            <svg viewBox="0 0 24 24" className="size-6" stroke="currentColor" strokeWidth="1.75" fill="none">
+              {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 8h16M4 16h16" />}
             </svg>
           </button>
         </div>
       </div>
 
       {open && (
-        <nav className="flex flex-col border-t border-white/10 px-4 pb-4 lg:hidden">
+        <nav className="flex flex-col border-t border-navy/10 px-4 pb-4 lg:hidden">
           {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="py-3 uppercase"
-            >
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="py-3">
               {item.label}
             </Link>
           ))}
+          <button onClick={() => { setOpen(false); setLogin(true); }} className="py-3 text-left sm:hidden">
+            {t.nav.login}
+          </button>
         </nav>
       )}
 

@@ -4,12 +4,15 @@
   --color-navy: #071438;
   --color-periwinkle: #7082bf;
   --color-mist: #f3f3f3;
+  --color-paper: #f7f7f5;
+  --color-stone: #e6e4df;
+  --color-moss: #5e6b5a;
   --color-slate: #787878;
   --font-sans: var(--font-poppins);
 }
 
 body {
-  background: var(--color-mist);
+  background: var(--color-paper);
   color: var(--color-navy);
 }
 
@@ -49,5 +52,15 @@ body {
   .marquee-track,
   .kenburns {
     animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
