@@ -27,9 +27,7 @@ export default function Header() {
     <header className={`sticky top-0 z-40 border-b backdrop-blur ${dark ? "border-white/10 bg-[#071438]/90 text-white" : "border-navy/10 bg-paper/95"}`}>
       <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-8 px-4 md:px-8">
         <Link href="/" className="flex items-center gap-2.5">
-          <span className={`grid size-8 place-items-center rounded-sm ${dark ? "bg-white/10" : "bg-navy"}`}>
-            <Logo className="h-4 w-auto" />
-          </span>
+          <Logo tone={dark ? "white" : "navy"} className="h-6 w-auto" />
           <span className="text-lg font-semibold tracking-tight">Iprefab</span>
         </Link>
 
