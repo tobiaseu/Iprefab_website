@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #071438;
+  --color-periwinkle: #7082bf;
+  --color-mist: #f3f3f3;
+  --color-slate: #787878;
+  --font-sans: var(--font-poppins);
+}
+
+body {
+  background: var(--color-mist);
+  color: var(--color-navy);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
