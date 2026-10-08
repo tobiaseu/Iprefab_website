@@ -49,7 +49,7 @@ export default async function HousePage({ params }: PageProps<"/houses/[slug]">)
         <Image src={house.cover ?? house.image} alt={house.name} fill priority sizes="100vw" className="object-cover" />
       </div>
 
-      <section className="bg-white">
+      <section>
         <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-10 md:px-32 lg:grid-cols-2">
           <div>
             <Link href="/houses" className="text-sm text-slate hover:underline">← All houses</Link>

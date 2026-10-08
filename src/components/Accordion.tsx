@@ -15,7 +15,7 @@ export default function Accordion({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+    <div className="overflow-hidden glass rounded-3xl">
       {color && <div className="h-3" style={{ background: color }} />}
       <button
         onClick={() => setOpen(!open)}

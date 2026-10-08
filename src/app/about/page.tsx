@@ -40,7 +40,7 @@ export default function AboutPage() {
         <h2 className="mt-16 text-[32px] font-semibold">Our Team</h2>
         <div className="mt-6 grid grid-cols-2 gap-4 pb-12 lg:grid-cols-4">
           {team.map((m) => (
-            <div key={m.name} className="rounded-2xl bg-white p-4 shadow-[0_2px_4px_rgba(0,0,0,0.1)]">
+            <div key={m.name} className="glass rounded-3xl p-4">
               <Image src={m.image} alt={m.name} width={240} height={240} className="aspect-square w-full rounded-xl object-cover" />
               <p className="mt-3 text-lg font-medium md:text-xl">{m.name}</p>
               <p className="text-xs text-slate">{m.role}</p>

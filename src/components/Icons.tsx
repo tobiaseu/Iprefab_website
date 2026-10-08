@@ -101,3 +101,12 @@ export function SocialIcon({ name, className }: P & { name: "instagram" | "x" | 
     </svg>
   );
 }
+
+export function ArrowCircle({ className = "" }: { className?: string }) {
+  return (
+    <span aria-hidden className={`grid size-8 shrink-0 place-items-center rounded-full bg-white text-[#3b4fe0] ${className}`}>
+      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </span>
+  );
+}
+

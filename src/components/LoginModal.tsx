@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export default function LoginModal({ onClose }: { onClose: () => void }) {
   useEffect(() => {
@@ -9,16 +10,17 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  return (
+  // Portal to body: the header's backdrop-filter would otherwise contain this fixed overlay.
+  return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-navy/60 p-4 text-navy"
+      className="fixed inset-0 z-50 flex overflow-y-auto bg-[#030a24]/70 p-4 text-white backdrop-blur-sm"
       onClick={onClose}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="login-title"
-        className="relative w-full max-w-[544px] rounded-2xl bg-white p-8 shadow-xl md:p-12"
+        className="relative m-auto w-full max-w-[544px] glass rounded-3xl !bg-[#0b1846]/95 p-8 shadow-xl md:p-12"
         onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} aria-label="Close" className="absolute top-5 right-5 text-slate hover:text-navy">
@@ -43,7 +45,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
             <input type="password" required placeholder="••••••••" className="rounded-xl border border-slate/50 px-4 py-3 text-base outline-none focus:border-periwinkle" />
           </label>
           <a href="#" className="self-end text-xs text-slate underline">Forgot password?</a>
-          <button className="mt-2 h-12 rounded-[20px] bg-periwinkle text-xl font-medium text-white hover:brightness-95">
+          <button className="mt-2 h-12 rounded-full bg-[#4a5cf0] text-xl font-medium text-white hover:bg-[#5b6cf0]">
             Log In
           </button>
           <p className="text-center text-sm text-slate">
@@ -51,6 +53,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
           </p>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

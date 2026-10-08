@@ -39,39 +39,39 @@ async function downloadSvgAsPng(svg: SVGSVGElement) {
 export default function ResultActions({ svgRef }: { svgRef: RefObject<SVGSVGElement | null> }) {
   const { t } = useLang();
   const [booked, setBooked] = useState(false);
-  const field = "w-full border-b border-navy/30 bg-transparent py-2.5 outline-none focus:border-navy";
+  const field = "w-full mt-1 rounded-full border border-white/15 bg-white/5 px-4 py-2.5 outline-none focus:border-white/50 [color-scheme:dark]";
 
   return (
     <div className="space-y-10">
       <button
         type="button"
         onClick={() => svgRef.current && downloadSvgAsPng(svgRef.current)}
-        className="bg-navy px-6 py-3.5 font-medium text-paper transition-colors hover:bg-periwinkle"
+        className="rounded-full bg-[#4a5cf0] px-6 py-3 font-medium text-white transition-colors hover:bg-[#5b6cf0]"
       >
         {t.cfg.download}
       </button>
 
       <div>
         <h3 className="font-semibold">{t.cfg.bookTitle}</h3>
-        <p className="mt-1 text-sm text-slate">{t.cfg.bookLead}</p>
+        <p className="mt-1 text-sm text-white/60">{t.cfg.bookLead}</p>
         {booked ? (
-          <p className="mt-4 text-moss">{t.cfg.booked}</p>
+          <p className="mt-4 text-[#aeb9ff]">{t.cfg.booked}</p>
         ) : (
           <form className="mt-4 grid gap-4 sm:grid-cols-2" onSubmit={(e) => { e.preventDefault(); setBooked(true); }}>
-            <label className="text-sm text-slate">
+            <label className="text-sm text-white/60">
               {t.cfg.name}
-              <input required className={`${field} text-navy`} autoComplete="name" />
+              <input required className={`${field} text-white`} autoComplete="name" />
             </label>
-            <label className="text-sm text-slate">
+            <label className="text-sm text-white/60">
               {t.cfg.email}
-              <input required type="email" className={`${field} text-navy`} autoComplete="email" />
+              <input required type="email" className={`${field} text-white`} autoComplete="email" />
             </label>
-            <label className="text-sm text-slate">
+            <label className="text-sm text-white/60">
               {t.cfg.date}
-              <input type="date" className={`${field} text-navy`} />
+              <input type="date" className={`${field} text-white`} />
             </label>
             <div className="flex items-end">
-              <button type="submit" className="border border-navy px-5 py-2.5 font-medium transition-colors hover:bg-navy hover:text-paper">
+              <button type="submit" className="rounded-full bg-white px-5 py-2.5 font-medium text-[#071438] transition-colors hover:bg-[#c9d1f0]">
                 {t.cfg.book}
               </button>
             </div>
@@ -81,7 +81,7 @@ export default function ResultActions({ svgRef }: { svgRef: RefObject<SVGSVGElem
 
       <div>
         <h3 className="font-semibold">{t.cfg.newsTitle}</h3>
-        <NewsletterForm className="mt-2" />
+        <NewsletterForm dark className="mt-2" />
       </div>
     </div>
   );

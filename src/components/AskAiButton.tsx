@@ -38,8 +38,8 @@ export default function AskAiButton() {
   return (
     <>
       {open && (
-        <div className="fixed right-4 bottom-24 z-40 flex h-[480px] w-[min(360px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
-          <div className="flex items-center justify-between bg-navy px-4 py-3 text-white">
+        <div className="fixed right-4 bottom-24 z-40 flex h-[480px] w-[min(360px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b1846]/95 shadow-2xl backdrop-blur-xl">
+          <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3 text-white">
             <p className="font-medium">AI Consultant</p>
             <button onClick={() => setOpen(false)} aria-label="Close chat">✕</button>
           </div>
@@ -47,7 +47,7 @@ export default function AskAiButton() {
             {msgs.map((m, i) => (
               <p
                 key={i}
-                className={`max-w-[85%] rounded-2xl px-3 py-2 ${m.from === "ai" ? "self-start bg-mist" : "self-end bg-periwinkle text-white"}`}
+                className={`max-w-[85%] rounded-2xl px-3 py-2 ${m.from === "ai" ? "self-start bg-mist" : "self-end bg-[#4a5cf0] text-white"}`}
               >
                 {m.text}
               </p>
@@ -60,13 +60,13 @@ export default function AskAiButton() {
               placeholder="Ask anything…"
               className="flex-1 rounded-full border border-slate/40 px-4 py-2 text-sm outline-none focus:border-periwinkle"
             />
-            <button className="rounded-full bg-navy px-4 text-sm text-white">Send</button>
+            <button className="rounded-full bg-[#4a5cf0] px-4 text-sm text-white">Send</button>
           </form>
         </div>
       )}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed right-4 bottom-6 z-40 flex h-[64px] w-[64px] flex-col items-center justify-center rounded-2xl bg-periwinkle text-white shadow-lg transition-transform hover:scale-105"
+        className="fixed right-4 bottom-6 z-40 flex h-[64px] w-[64px] flex-col items-center justify-center rounded-2xl bg-[#4a5cf0] text-white ring-1 ring-white/20 shadow-lg transition-transform hover:scale-105"
       >
         <ChatIcon className="size-6" />
         <span className="text-sm font-bold">Ask AI</span>

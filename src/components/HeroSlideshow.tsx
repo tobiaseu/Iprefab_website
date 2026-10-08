@@ -34,8 +34,8 @@ export default function HeroSlideshow() {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/40 to-navy/10" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-navy/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#071438]/80 via-[#071438]/40 to-[#071438]/10" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#071438]/50 to-transparent" />
       <div className="absolute right-6 bottom-6 hidden items-center gap-3 text-xs text-white/80 md:flex">
         <span>{slides[i].caption}</span>
         <div className="flex gap-1.5">

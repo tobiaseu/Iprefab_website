@@ -20,7 +20,7 @@ const sorts = {
 
 function Select({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: [string, string][] }) {
   return (
-    <label className="flex flex-col rounded-xl border border-slate/60 bg-white px-4 py-2 text-sm">
+    <label className="flex flex-col rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm">
       <span className="font-medium">{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} className="bg-transparent text-xs text-slate outline-none">
         <option value="">Select {label}</option>
@@ -62,7 +62,7 @@ export default function HouseSearch() {
         <div className="relative mx-auto flex max-w-[1440px] justify-center px-4 py-8">
           <form
             onSubmit={(e) => { e.preventDefault(); setFilters(draft); }}
-            className="w-full max-w-[768px] rounded-[32px] bg-white p-6 shadow-lg"
+            className="w-full max-w-[768px] glass rounded-[32px] !bg-[#0b1846]/80 p-6"
           >
             <h1 className="text-center text-2xl font-medium">Your Project Starts Here</h1>
             <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
@@ -71,7 +71,7 @@ export default function HouseSearch() {
               <Select label="Price Range" value={draft.price} onChange={set("price")} options={[["<200k", "Under €200.000"], ["200-300k", "€200.000–300.000"], [">300k", "Over €300.000"]]} />
               <Select label="Rooms" value={draft.rooms} onChange={set("rooms")} options={[["2", "2+ bedrooms"], ["3", "3+ bedrooms"], ["4", "4+ bedrooms"], ["5", "5+ bedrooms"]]} />
               <Select label="Floors" value={draft.floors} onChange={set("floors")} options={[["1", "1 floor"], ["2", "2 floors"]]} />
-              <button className="col-span-2 min-h-14 rounded-[20px] bg-periwinkle text-xl font-medium text-white hover:brightness-95 md:col-span-1">
+              <button className="col-span-2 min-h-14 rounded-full bg-[#4a5cf0] text-xl font-medium text-white hover:bg-[#5b6cf0] md:col-span-1">
                 Search Houses
               </button>
             </div>
@@ -79,14 +79,14 @@ export default function HouseSearch() {
         </div>
       </section>
 
-      <div className="bg-white">
+      <div>
         <div className="relative mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 md:px-32">
           <p className="text-sm text-slate">{results.length} houses found</p>
           <button onClick={() => setSortOpen(!sortOpen)} aria-label="Sort" aria-expanded={sortOpen} className="rounded-lg p-1 hover:bg-mist">
             <SortIcon className="size-6" />
           </button>
           {sortOpen && (
-            <div className="absolute top-14 right-4 z-10 w-56 overflow-hidden rounded-2xl bg-white shadow-xl md:right-32">
+            <div className="absolute top-14 right-4 z-10 w-56 overflow-hidden rounded-2xl border border-white/10 bg-[#0b1846] shadow-xl md:right-32">
               {(Object.keys(sorts) as (keyof typeof sorts)[]).map((k) => (
                 <button
                   key={k}

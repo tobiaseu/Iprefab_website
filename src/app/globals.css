@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-navy: #071438;
-  --color-periwinkle: #7082bf;
-  --color-mist: #f3f3f3;
-  --color-paper: #f7f7f5;
-  --color-stone: #e6e4df;
-  --color-moss: #5e6b5a;
-  --color-slate: #787878;
+  --color-navy: #ffffff;
+  --color-periwinkle: #aeb9ff;
+  --color-mist: rgb(255 255 255 / 0.06);
+  --color-paper: #071438;
+  --color-stone: rgb(255 255 255 / 0.08);
+  --color-moss: #aeb9ff;
+  --color-slate: #b8c1e6;
   --font-sans: var(--font-poppins);
 }
 
+html {
+  background: #071438;
+}
 body {
-  background: var(--color-paper);
-  color: var(--color-navy);
+  background: linear-gradient(180deg, #071438 0, #0a1a4e 600px, #16258a 60%, #2f40c8 100%) #071438;
+  color: #fff;
+  color-scheme: dark;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -83,4 +87,15 @@ body {
   .composer-glow {
     animation: none;
   }
+}
+
+@utility glass {
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 30px 60px -30px rgb(3 8 30 / 0.6);
+}
+@utility lyra-bg {
+  background: linear-gradient(180deg, #071438 0%, #0a1a4e 22%, #16258a 50%, #2f40c8 78%, #3b4fe0 100%);
 }

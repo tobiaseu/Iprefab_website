@@ -10,7 +10,7 @@ export default function MagazinePage() {
       <PageHero title="Magazine" text="Guides, news and insights on prefab construction, materials and building your home in Finland." />
       <section className="mx-auto grid max-w-[1440px] gap-4 px-4 py-16 pb-24 sm:grid-cols-2 md:px-32 lg:grid-cols-3">
         {articles.map((a) => (
-          <article key={a.slug} className="overflow-hidden rounded-2xl bg-white shadow-[0_2px_4px_rgba(0,0,0,0.25)]">
+          <article key={a.slug} className="overflow-hidden glass rounded-3xl">
             <div className="relative aspect-[2/1]">
               <Image src={a.image} alt={a.title} fill sizes="(max-width: 768px) 100vw, 384px" className="object-cover" />
             </div>

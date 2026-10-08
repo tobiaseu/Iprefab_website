@@ -53,7 +53,7 @@ function Segmented<T extends string | number>({ value, options, onChange, label 
           role="radio"
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
-          className={`border px-4 py-2 text-sm transition-colors ${value === o.value ? "border-navy bg-navy text-paper" : "border-navy/20 hover:border-navy/60"}`}
+          className={`rounded-full border px-4 py-2 text-sm transition-colors ${value === o.value ? "border-white bg-white text-[#071438]" : "border-white/15 bg-white/5 hover:border-white/40"}`}
         >
           {o.label}
         </button>
@@ -90,13 +90,13 @@ export default function Configurator({ q = "" }: { q?: string }) {
   ] as const;
 
   return (
-    <div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-6 px-4 md:px-8 lg:h-[calc(100svh-4rem)]">
+    <div className="lyra-bg text-white"><div className="mx-auto grid max-w-[1440px] grid-cols-12 gap-x-6 px-4 md:px-8 lg:h-[calc(100svh-5rem)]">
       {/* Conversation */}
       <section className="order-2 col-span-12 flex min-h-0 flex-col py-8 lg:order-1 lg:col-span-5 lg:py-10" aria-live="polite">
         <div className="flex items-baseline justify-between gap-4">
           <h1 className="text-2xl font-semibold tracking-tight">{t.cfg.title}</h1>
           {step > 0 && (
-            <button type="button" onClick={() => { setStep(0); setC(start); }} className="text-sm text-slate underline underline-offset-4 hover:text-navy">
+            <button type="button" onClick={() => { setStep(0); setC(start); }} className="text-sm text-white/60 underline underline-offset-4 hover:text-white">
               {t.cfg.restart}
             </button>
           )}
@@ -106,14 +106,14 @@ export default function Configurator({ q = "" }: { q?: string }) {
           <GuideLine name={t.cfg.guide}>{t.cfg.intro}</GuideLine>
           {q && (
             <div className="space-y-3">
-              <p className="ml-auto w-fit max-w-[85%] bg-stone px-4 py-2.5 text-sm">{q}</p>
+              <p className="ml-auto w-fit max-w-[85%] glass rounded-2xl rounded-br-sm px-4 py-2.5 text-sm">{q}</p>
               <GuideLine name={t.cfg.guide}>{t.cfg.prefilled}</GuideLine>
             </div>
           )}
           {STEPS.slice(0, step).map((s) => (
             <div key={s} className="space-y-3">
               <GuideLine name={t.cfg.guide}>{question(t, s)}</GuideLine>
-              <p className="ml-auto w-fit max-w-[85%] bg-stone px-4 py-2.5 text-sm">{answer(t, s, c, refName?.name ?? matches[0].house.name)}</p>
+              <p className="ml-auto w-fit max-w-[85%] glass rounded-2xl rounded-br-sm px-4 py-2.5 text-sm">{answer(t, s, c, refName?.name ?? matches[0].house.name)}</p>
             </div>
           ))}
 
@@ -123,11 +123,11 @@ export default function Configurator({ q = "" }: { q?: string }) {
             {current === "plot" && (
               <div className="space-y-6">
                 <label className="block">
-                  <span className="flex justify-between text-sm text-slate">{t.cfg.plotSize}<span className="text-navy">{c.plotSize} m²</span></span>
+                  <span className="flex justify-between text-sm text-white/60">{t.cfg.plotSize}<span className="text-white">{c.plotSize} m²</span></span>
                   <input type="range" min={400} max={3000} step={50} value={c.plotSize} onChange={(e) => set("plotSize", +e.target.value)} className="mt-2 w-full accent-periwinkle" />
                 </label>
                 <div>
-                  <p className="mb-2 text-sm text-slate">{t.cfg.orientation}</p>
+                  <p className="mb-2 text-sm text-white/60">{t.cfg.orientation}</p>
                   <Segmented<Orientation> label={t.cfg.orientation} value={c.orientation} onChange={(v) => set("orientation", v)}
                     options={(["N", "E", "S", "W"] as const).map((o) => ({ value: o, label: t.cfg.orient[o] }))} />
                 </div>
@@ -137,7 +137,7 @@ export default function Configurator({ q = "" }: { q?: string }) {
             {current === "household" && (
               <div className="space-y-6">
                 <div>
-                  <p className="mb-2 text-sm text-slate">{t.cfg.people}</p>
+                  <p className="mb-2 text-sm text-white/60">{t.cfg.people}</p>
                   <Segmented<number> label={t.cfg.people} value={c.people} onChange={(v) => set("people", v)}
                     options={[1, 2, 3, 4, 5, 6].map((n) => ({ value: n, label: n === 6 ? "6+" : String(n) }))} />
                 </div>
@@ -154,14 +154,14 @@ export default function Configurator({ q = "" }: { q?: string }) {
                   const labels = t.cfg.pairs[p.key];
                   return (
                     <fieldset key={p.key}>
-                      <legend className="mb-2 text-sm text-slate">{labels.q}</legend>
+                      <legend className="mb-2 text-sm text-white/60">{labels.q}</legend>
                       <div className="grid grid-cols-2 gap-2">
                         {([[p.a, labels.a, p.ia], [p.b, labels.b, p.ib]] as const).map(([v, label, icon]) => {
                           const on = c[p.key] === v;
                           return (
                             <button key={String(v)} type="button" aria-pressed={on}
                               onClick={() => setC((prev) => ({ ...prev, [p.key]: v }))}
-                              className={`flex items-center gap-3 border p-3 text-left text-sm transition-colors ${on ? "border-navy bg-navy text-paper" : "border-navy/15 bg-stone/50 hover:border-navy/50"}`}>
+                              className={`flex items-center gap-3 rounded-2xl border p-3 text-left text-sm transition-colors ${on ? "border-white bg-white text-[#071438]" : "border-white/15 bg-white/5 hover:border-white/40"}`}>
                               <PairIcon name={icon} />
                               {label}
                             </button>
@@ -176,9 +176,9 @@ export default function Configurator({ q = "" }: { q?: string }) {
 
             {current === "budget" && (
               <label className="block">
-                <span className="flex justify-between text-sm text-slate">{t.cfg.budget}<span className="text-navy">{formatPrice(c.budget)}</span></span>
+                <span className="flex justify-between text-sm text-white/60">{t.cfg.budget}<span className="text-white">{formatPrice(c.budget)}</span></span>
                 <input type="range" min={150000} max={450000} step={5000} value={c.budget} onChange={(e) => set("budget", +e.target.value)} className="mt-2 w-full accent-periwinkle" />
-                <span className="mt-1 flex justify-between text-xs text-slate"><span>{formatPrice(150000)}</span><span>{formatPrice(450000)}</span></span>
+                <span className="mt-1 flex justify-between text-xs text-white/60"><span>{formatPrice(150000)}</span><span>{formatPrice(450000)}</span></span>
               </label>
             )}
 
@@ -189,17 +189,17 @@ export default function Configurator({ q = "" }: { q?: string }) {
                   return (
                     <li key={m.house.slug}>
                       <button type="button" aria-pressed={on} onClick={() => set("reference", m.house.slug)}
-                        className={`grid w-full grid-cols-[96px_1fr] gap-4 border p-3 text-left transition-colors ${on ? "border-navy" : "border-navy/15 hover:border-navy/50"}`}>
-                        <span className="relative aspect-[4/3] overflow-hidden bg-stone">
+                        className={`grid w-full grid-cols-[96px_1fr] gap-4 rounded-2xl border bg-white/5 p-3 backdrop-blur text-left transition-colors ${on ? "border-white/70 bg-white/10" : "border-white/15 hover:border-white/40"}`}>
+                        <span className="relative aspect-[4/3] overflow-hidden rounded-xl bg-stone">
                           <Image src={m.house.image} alt="" fill sizes="96px" className="object-cover" />
                         </span>
                         <span>
                           <span className="flex flex-wrap justify-between gap-x-3">
                             <span className="font-medium">{m.house.name}</span>
-                            <span className="text-sm text-slate">{formatPrice(m.house.price)}</span>
+                            <span className="text-sm text-white/60">{formatPrice(m.house.price)}</span>
                           </span>
-                          <span className="block text-sm text-slate">{m.house.builder}, {m.house.size} m²</span>
-                          <span className="mt-1.5 block text-sm text-moss first-letter:uppercase">{m.reasons.map((r) => reasonText(t, r)).join(", ")}.</span>
+                          <span className="block text-sm text-white/60">{m.house.builder}, {m.house.size} m²</span>
+                          <span className="mt-1.5 block text-sm text-[#aeb9ff] first-letter:uppercase">{m.reasons.map((r) => reasonText(t, r)).join(", ")}.</span>
                         </span>
                       </button>
                     </li>
@@ -211,12 +211,12 @@ export default function Configurator({ q = "" }: { q?: string }) {
             {current === "tweaks" && (
               <div className="space-y-6">
                 <div>
-                  <p className="mb-2 text-sm text-slate">{t.cfg.roof}</p>
+                  <p className="mb-2 text-sm text-white/60">{t.cfg.roof}</p>
                   <Segmented label={t.cfg.roof} value={c.roof} onChange={(v) => set("roof", v)}
                     options={(["gable", "shed", "flat"] as const).map((r) => ({ value: r, label: t.cfg.roofs[r] }))} />
                 </div>
                 <div>
-                  <p className="mb-2 text-sm text-slate">{t.cfg.windows}</p>
+                  <p className="mb-2 text-sm text-white/60">{t.cfg.windows}</p>
                   <Segmented label={t.cfg.windows} value={c.windows} onChange={(v) => set("windows", v)}
                     options={(["regular", "large"] as const).map((w) => ({ value: w, label: t.cfg.windowSizes[w] }))} />
                 </div>
@@ -225,9 +225,9 @@ export default function Configurator({ q = "" }: { q?: string }) {
 
             {current === "result" && (
               <div className="space-y-8">
-                <dl className="grid grid-cols-2 gap-4 border-y border-navy/10 py-4 text-sm">
-                  <div><dt className="text-slate">{t.cfg.sizeLabel}</dt><dd className="mt-0.5 font-medium">{targetArea(c)} m²</dd></div>
-                  <div><dt className="text-slate">{t.cfg.reference}</dt><dd className="mt-0.5 font-medium">{(refName ?? matches[0].house).name}, {(refName ?? matches[0].house).builder}</dd></div>
+                <dl className="grid grid-cols-2 gap-4 border-y border-white/10 py-4 text-sm">
+                  <div><dt className="text-white/60">{t.cfg.sizeLabel}</dt><dd className="mt-0.5 font-medium">{targetArea(c)} m²</dd></div>
+                  <div><dt className="text-white/60">{t.cfg.reference}</dt><dd className="mt-0.5 font-medium">{(refName ?? matches[0].house).name}, {(refName ?? matches[0].house).builder}</dd></div>
                 </dl>
                 <ResultActions svgRef={svgRef} />
               </div>
@@ -238,11 +238,11 @@ export default function Configurator({ q = "" }: { q?: string }) {
                 <button type="button" onClick={() => {
                   if (current === "matches" && !c.reference) set("reference", matches[0].house.slug);
                   setStep(step + 1);
-                }} className="bg-navy px-6 py-3 font-medium text-paper transition-colors hover:bg-periwinkle">
+                }} className="rounded-full bg-[#4a5cf0] px-6 py-3 font-medium text-white transition-colors hover:bg-[#5b6cf0]">
                   {t.cfg.next}
                 </button>
                 {step > 0 && (
-                  <button type="button" onClick={() => setStep(step - 1)} className="text-sm text-slate underline underline-offset-4 hover:text-navy">
+                  <button type="button" onClick={() => setStep(step - 1)} className="text-sm text-white/60 underline underline-offset-4 hover:text-white">
                     {t.cfg.back}
                   </button>
                 )}
@@ -254,23 +254,25 @@ export default function Configurator({ q = "" }: { q?: string }) {
 
       {/* House */}
       <section className="order-1 col-span-12 pt-6 lg:order-2 lg:col-span-7 lg:flex lg:flex-col lg:justify-center lg:py-10">
-        <div className="bg-stone">
-          <HouseDrawing ref={svgRef} config={c} title={t.cfg.houseAlt} />
+        <div className="glass rounded-3xl p-2">
+          <div className="overflow-hidden rounded-2xl bg-stone">
+            <HouseDrawing ref={svgRef} config={c} title={t.cfg.houseAlt} />
+          </div>
         </div>
-        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-navy/10 py-4">
-          <p className="text-sm text-slate">{t.cfg.estimate}<span className="block text-xs">{t.cfg.estimateNote}</span></p>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-white/10 py-4">
+          <p className="text-sm text-white/60">{t.cfg.estimate}<span className="block text-xs">{t.cfg.estimateNote}</span></p>
           <p className="text-3xl font-semibold tracking-tight tabular-nums">{formatPrice(price)}</p>
         </div>
       </section>
-    </div>
+    </div></div>
   );
 }
 
 function GuideLine({ name, children, current }: { name: string; children: React.ReactNode; current?: boolean }) {
   return (
     <div className="flex gap-3">
-      <span aria-hidden="true" className={`mt-1.5 size-2.5 shrink-0 rounded-full ${current ? "bg-periwinkle" : "bg-navy/25"}`} />
-      <p className={current ? "text-lg leading-snug" : "text-navy/70"}>
+      <span aria-hidden="true" className={`mt-1.5 size-2.5 shrink-0 rounded-full ${current ? "bg-periwinkle" : "bg-white/25"}`} />
+      <p className={current ? "text-lg leading-snug" : "text-white/70"}>
         <span className="sr-only">{name}: </span>
         {children}
       </p>
