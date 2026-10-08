@@ -2,11 +2,11 @@ type P = { className?: string };
 
 export function LogoMark({ className }: P) {
   return (
-    <svg viewBox="0 0 40 34" className={className} fill="currentColor" aria-hidden>
-      <path d="M20 0 40 14H0L20 0Z" />
-      <rect x="2" y="17" width="16" height="17" />
-      <rect x="22" y="17" width="16" height="7" />
-      <rect x="22" y="27" width="16" height="7" />
+    <svg viewBox="26 44 146 102" className={className} fill="currentColor" aria-hidden>
+      <path d="M26 100 68 64v36H26Z" />
+      <path d="M80 44v56h92L80 44Z" />
+      <rect x="42" y="112" width="26" height="34" />
+      <rect x="80" y="112" width="70" height="34" />
     </svg>
   );
 }

@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-16 md:px-32 lg:grid-cols-[1fr_2fr]">
         <div>
           <div className="flex items-center gap-4">
-            <LogoMark className="h-14 w-16" />
+            <LogoMark className="h-14 w-20" />
             <div>
               <p className="text-[32px] leading-none font-semibold">House Finland</p>
               <p className="mt-1 text-xl font-medium">Powered By Iprefab</p>

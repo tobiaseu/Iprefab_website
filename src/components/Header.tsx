@@ -23,7 +23,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 bg-navy text-white">
       <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 md:px-8">
         <Link href="/" className="flex items-center gap-3">
-          <LogoMark className="h-6 w-7" />
+          <LogoMark className="h-7 w-10" />
           <span className="text-2xl font-bold">House Finland</span>
         </Link>
 
